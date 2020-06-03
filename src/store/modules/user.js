@@ -26,18 +26,22 @@ const mutations = {
     state.avatar = avatar
   }
 }
-
+let userInfos = {};
 const actions = {
   // user login
   login({ commit }, userInfo) {
     const { username, password } = userInfo
+    console.log('sjjj', commit, userInfo)
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      login({ user_name: username.trim(), password: password }).then(response => {
         const { data } = response
+        userInfos = data
+        console.log('data', data, response)
         commit('SET_TOKEN', data.token)
         setToken(data.token)
         resolve()
       }).catch(error => {
+        console.log('data', error)
         reject(error)
       })
     })
@@ -45,15 +49,18 @@ const actions = {
 
   // get user info
   getInfo({ commit, state }) {
+    console.log('dddassah',state)
     return new Promise((resolve, reject) => {
+
       getInfo(state.token).then(response => {
-        const { data } = response
+        const {data}  = response
 
         if (!data) {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar } = data
+        const { name } = data
+        const avatar = 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
 
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
