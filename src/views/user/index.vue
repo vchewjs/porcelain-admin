@@ -184,9 +184,6 @@ export default {
       request({
         url: "/user/list",
         method: "get",
-        headers: {
-          Authorization: "Bearer " + getToken()
-        },
         params: this.querData
       })
         .then(res => {
