@@ -6,7 +6,19 @@ export function getCookie(name) {
     else
         return null;
 }
-
+ //获取服务端cookie
+ export function getcookiesInServer (req) {
+    let service_cookie = {};
+    req && req.headers.cookie && req.headers.cookie.split(';').forEach(function (val) {
+      let parts = val.split('=');
+      service_cookie[parts[0].trim()] = (parts[1] || '').trim();
+    });
+    return service_cookie;
+  }
+  //获取客户端cookie
+  export function getcookiesInClient (key) {
+    return Cookie.get(key) ? Cookie.get(key) : ''
+  }
 //设置cookie,增加到vue实例方便全局调用
 export function setCookie(c_name, value, expiredays) {
     var exdate = new Date();

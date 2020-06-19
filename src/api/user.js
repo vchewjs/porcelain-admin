@@ -18,6 +18,13 @@ export function getInfo(token) {
     params: { token }
   })
 }
+export function thirdBind(data) {
+  return request({
+    url: '/thirdBind',
+    method: 'post',
+    data
+  })
+}
 
 export function logout() {
   return request({
